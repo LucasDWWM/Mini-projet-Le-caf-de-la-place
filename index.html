@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mini projet</title>
 </head>
 <body>
-    <h1>Le café</h1>
+    <h1>Le café de la place</h1>
+    <div id="stock-form">
+        <h2>Ajouter un nouveau produit</h2>
+        <label for="productName">Nom du Produit:</label>
+        <input type="text" id="productName" required>
+
+        <label for="productQuantity">Quantité:</label>
+        <input type="number" id="productQuantity" required>
+
+        <label for="productPrixAchat">Prix d'achat HT:</label>
+        <input type="number" id="productPrixAchat" required>
+
+        <label for="productPrixVente">Prix de vente HT:</label>
+        <input type="number" id="productPrixVente" required>
+
+        <label for="productType">Type:</label>
+        <select id="productType">
+            <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+            <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
+            <option value="Autre">Autre</option>
+        </select>
+
+        <label for="productDegreAlcool">Degré d'alcool:</label>
+        <input type="number" id="productDegreAlcool">
+
+        <button onclick="ajouterProduit()">Ajouter Produit</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

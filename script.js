@@ -22,12 +22,6 @@ class Produit {
         this.margeHT = this.prixVenteHT - this.prixAchatHT;
     }
 
-<<<<<<< HEAD
-    calculerPrixVenteTTC() {
-        const tauxTVA = 0.2;
-        this.prixVenteTTC = this.prixVenteHT * (1 + tauxTVA);
-    }
-=======
   calculerPrixVenteTTC() {
     const tauxTVA = 0.2;
     this.prixVenteTTC = this.prixVenteHT * (1 + tauxTVA);
@@ -36,7 +30,6 @@ class Produit {
   calculerTotalAvecTVA(quantite) {
     return this.prixVenteTTC * quantite;
   }
->>>>>>> 6574a7371f519b0fc9b0b7329ebccc1f8cfeb6af
 }
 
 // Liste de produits
@@ -69,23 +62,6 @@ function afficherListeProduits() {
     let listeProduitsDiv = document.getElementById("listeProduits");
     listeProduitsDiv.innerHTML = "";
 
-<<<<<<< HEAD
-    listeProduits.forEach((produit) => {
-        let produitDiv = document.createElement("div");
-        produitDiv.innerHTML = `
-              <p>${produit.nom}</p>
-              <p>Quantité: ${produit.quantite}</p>
-              <p>Prix d'achat HT: ${produit.prixAchatHT}</p>
-              <p>Prix de vente HT: ${produit.prixVenteHT}</p>
-              <p>Type: ${produit.type}</p>
-              <p>Degré d'alcool: ${produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
-            }</p>
-              <p>Marge HT: ${produit.margeHT}</p>
-              <button onclick="modifierQuantite('${produit.nom
-            }', -1)">Décrémenter Stock</button>
-              <button onclick="modifierQuantite('${produit.nom
-            }', 1)">Incrémenter Stock</button> <hr>`;
-=======
   listeProduits.forEach((produit) => {
     let produitDiv = document.createElement("div");
     produitDiv.classList.add("produit");
@@ -120,7 +96,6 @@ function afficherListeProduits() {
             }', 1)">Incrémenter Stock</button>
           </div>
           <hr>`;
->>>>>>> 6574a7371f519b0fc9b0b7329ebccc1f8cfeb6af
 
         listeProduitsDiv.appendChild(produitDiv);
     });

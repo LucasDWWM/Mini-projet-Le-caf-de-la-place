@@ -1,12 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Mini projet</title>
 </head>
+
 <body>
-    <h1>Le café de la place</h1>
+
+    <!-- HEADER -->
+    <header>
+        <div id="headerContent">
+            <h1>Le Café Place</h1>
+            <p>L'endroit rêvé pour s'émerveiller</p>
+        </div>
+    </header>
+    <!-- FIN HEADER -->
+
+  <!-- SECTION PRESENTATION -->
+<section id="presentation">
+    <div class="presentation-container">
+        <h2>Bienvenue au Café Place</h2>
+        <p>Le Café Place est bien plus qu'un simple café. C'est un endroit où ça raconte une histoire, où
+            chaque saveur éveille des émotions. Découvrez un monde de délices soigneusement préparés pour
+            émerveiller vos sens.</p>
+
+        <!-- Cards -->
+        <div class="card-container">
+            <div class="card">
+                <img src="images/img-card-1.jpg" alt="Card 1">
+                <h3>Description 1</h3>
+                <p>Texte pour donner envie...</p>
+            </div>
+
+            <div class="card">
+                <img src="images/img-card-2.jpg" alt="Card 2">
+                <h3>Description 2</h3>
+                <p>Texte pour donner envie...</p>
+            </div>
+
+            <div class="card">
+                <img src="images/img-card-3.jpg" alt="Card 3">
+                <h3>Description 3</h3>
+                <p>Texte pour donner envie...</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FIN PRESENTATION -->
+
+
+
+    <!-- FORMULAIRE  -->
     <div id="stock-form">
         <h2>Ajouter un nouveau produit</h2>
         <label for="productName">Nom du Produit:</label>
@@ -33,6 +80,9 @@
 
         <button onclick="ajouterProduit()">Ajouter Produit</button>
     </div>
+
+    <!-- SCRIPT.JS-->
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,8 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
+
 
 
 /********** HEADER ***********/
@@ -12,7 +14,7 @@ header {
     background-position: center;
     color: white;
     text-align: center;
-    padding: 100px 0;
+    padding: 150px 0;
     height: 30%;
     position: relative;
 }
@@ -34,6 +36,43 @@ header::after {
 
 /********** FIN HEADER ***********/
 
+/* NAVBAR */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+
+
 /********** H1 ***********/
 h1 {
     font-size: 3em;
@@ -41,9 +80,16 @@ h1 {
 }
 
 /********** FIN H1 ***********/
+
+
+
+/********** P SIZE ***********/
 p {
     font-size: 1.5em;
 }
+
+/********** P SIZE ***********/
+
 
 
 /********** SECTION PRESENTATION ***********/
@@ -55,9 +101,12 @@ p {
     text-align: center;
     position: relative;
     display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    height: 100vh; /* Adjust the height */
+    align-items: center;
+    /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
+    height: 100vh;
+    /* Adjust the height */
 }
 
 .presentation-container {
@@ -78,12 +127,14 @@ p {
     margin-bottom: 15px;
 }
 
-.colorWhite{color: white;}
+.colorWhite {
+    color: white;
+}
 
 .card-container {
     display: flex;
     justify-content: space-around;
-    margin-top: 35px;
+    margin-top: 50px;
 }
 
 .card {
@@ -111,18 +162,29 @@ p {
     color: #555;
 }
 
+.card:hover {
+    transform: scale(1.1);
+    /* Increase the size on hover */
+    transition: transform 0.3s ease;
+    /* Add smooth transition effect */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow on hover */
+}
+
+
 /********** FIN SECTION PRESENTATION ***********/
 
 
 /********** FORMULAIRE ***********/
 #stock-form {
-    max-width: 400px;
+    max-width: 100%;
     margin: auto;
     padding: 20px;
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 label {
     display: block;
@@ -152,3 +214,37 @@ button:hover {
 }
 
 /********** FIN FORMULAIRE ***********/
+
+
+/* FOOTER */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+#footerContent {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#socialMediaLogos {
+    margin-top: 10px;
+}
+
+#socialMediaLogos img {
+    width: 30px;
+    margin-right: 15px;
+    /* Adjust the margin as needed for spacing between logos */
+    transition: transform 0.3s ease;
+    filter: invert(1);
+    /* Set the color to white */
+}
+
+#socialMediaLogos img:hover {
+    transform: scale(1.2);
+    /* Enlarge the image on hover */
+}
+
+/* FIN FOOTER */

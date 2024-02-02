@@ -1,88 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Mini projet</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- HEADER -->
     <header>
-        <div id="headerContent">
-            <h1>Le Café Place</h1>
-            <p>L'endroit rêvé pour s'émerveiller</p>
-        </div>
+      <div id="headerContent">
+        <h1>Le Café Place</h1>
+        <p>L'endroit rêvé pour s'émerveiller</p>
+      </div>
     </header>
     <!-- FIN HEADER -->
 
-  <!-- SECTION PRESENTATION -->
-<section id="presentation">
-    <div class="presentation-container">
+    <!-- SECTION PRESENTATION -->
+    <section id="presentation">
+      <div class="presentation-container">
         <h2>Bienvenue au Café Place</h2>
+<<<<<<< HEAD
         <p class="colorWhite">Le Café Place est bien plus qu'un simple café. C'est un endroit où ça raconte une histoire, où
             chaque saveur éveille des émotions. Découvrez un monde de délices soigneusement préparés pour
             émerveiller vos sens.</p>
+=======
+        <p>
+          Le Café Place est bien plus qu'un simple café. C'est un endroit où ça
+          raconte une histoire, où chaque saveur éveille des émotions. Découvrez
+          un monde de délices soigneusement préparés pour émerveiller vos sens.
+        </p>
+>>>>>>> 6574a7371f519b0fc9b0b7329ebccc1f8cfeb6af
 
         <!-- Cards -->
         <div class="card-container">
-            <div class="card">
-                <img src="images/img-card-1.jpg" alt="Card 1">
-                <h3>Description 1</h3>
-                <p>Texte pour donner envie...</p>
-            </div>
+          <div class="card">
+            <img src="images/img-card-1.jpg" alt="Card 1" />
+            <h3>Description 1</h3>
+            <p>Texte pour donner envie...</p>
+          </div>
 
-            <div class="card">
-                <img src="images/img-card-2.jpg" alt="Card 2">
-                <h3>Description 2</h3>
-                <p>Texte pour donner envie...</p>
-            </div>
+          <div class="card">
+            <img src="images/img-card-2.jpg" alt="Card 2" />
+            <h3>Description 2</h3>
+            <p>Texte pour donner envie...</p>
+          </div>
 
-            <div class="card">
-                <img src="images/img-card-3.jpg" alt="Card 3">
-                <h3>Description 3</h3>
-                <p>Texte pour donner envie...</p>
-            </div>
+          <div class="card">
+            <img src="images/img-card-3.jpg" alt="Card 3" />
+            <h3>Description 3</h3>
+            <p>Texte pour donner envie...</p>
+          </div>
         </div>
-    </div>
-</section>
-<!-- FIN PRESENTATION -->
-
-
+      </div>
+    </section>
+    <!-- FIN PRESENTATION -->
 
     <!-- FORMULAIRE  -->
     <div id="stock-form">
-        <h2>Ajouter un nouveau produit</h2>
-        <label for="productName">Nom du Produit:</label>
-        <input type="text" id="productName" required>
+      <h2>Ajouter un nouveau produit</h2>
+      <label for="productName">Nom du Produit:</label>
+      <input type="text" id="productName" required />
 
-        <label for="productQuantity">Quantité:</label>
-        <input type="number" id="productQuantity" required>
+      <label for="productQuantity">Quantité:</label>
+      <input type="number" id="productQuantity" required />
 
-        <label for="productPrixAchat">Prix d'achat HT:</label>
-        <input type="number" id="productPrixAchat" required>
+      <label for="productPrixAchat">Prix d'achat HT:</label>
+      <input type="number" id="productPrixAchat" required />
 
-        <label for="productPrixVente">Prix de vente HT:</label>
-        <input type="number" id="productPrixVente" required>
+      <label for="productPrixVente">Prix de vente HT:</label>
+      <input type="number" id="productPrixVente" required />
 
-        <label for="productType">Type:</label>
-        <select id="productType">
-            <option value="Boisson alcoolisée">Boisson alcoolisée</option>
-            <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
-            <option value="Autre">Autre</option>
-        </select>
+      <label for="productType">Type:</label>
+      <select id="productType">
+        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+        <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select>
 
-        <label for="productDegreAlcool">Degré d'alcool:</label>
-        <input type="number" id="productDegreAlcool">
+      <label for="productDegreAlcool">Degré d'alcool:</label>
+      <input type="number" id="productDegreAlcool" />
 
-        <button onclick="ajouterProduit()">Ajouter Produit</button>
+      <button onclick="ajouterProduit()">Ajouter Produit</button>
     </div>
+    <!-- Liste des produits -->
+    <div id="listeProduits"></div>
 
     <!-- SCRIPT.JS-->
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

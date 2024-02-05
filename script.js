@@ -9,11 +9,11 @@ class Produit {
     degreAlcool = null
   ) {
     this.nom = nom;
-    this.quantite = +quantite; // Utilisation de l'opérateur '+' pour convertir en nombre
+    this.quantite = +quantite;
     this.prixAchatHT = +prixAchatHT;
     this.prixVenteHT = +prixVenteHT;
     this.type = type;
-    this.degreAlcool = degreAlcool !== null ? +degreAlcool : null; // Conversion en nombre si degreAlcool n'est pas null
+    this.degreAlcool = degreAlcool !== null ? +degreAlcool : null;
     this.calculerMargeHT();
     this.calculerPrixVenteTTC();
   }
@@ -27,18 +27,9 @@ class Produit {
     this.prixVenteTTC = this.prixVenteHT * (1 + tauxTVA);
   }
 
-  calculerMargeHT() {
-      this.margeHT = this.prixVenteHT - this.prixAchatHT;
+  calculerTotalAvecTVA(quantite) {
+    return this.prixVenteTTC * quantite;
   }
-
-calculerPrixVenteTTC() {
-  const tauxTVA = 0.2;
-  this.prixVenteTTC = this.prixVenteHT * (1 + tauxTVA);
-}
-
-calculerTotalAvecTVA(quantite) {
-  return this.prixVenteTTC * quantite;
-}
 }
 
 // Liste de produits
@@ -53,102 +44,264 @@ function ajouterProduit() {
   let type = document.getElementById("productType").value;
   let degreAlcool = document.getElementById("productDegreAlcool").value || null;
 
-  let nouveauProduit = new Produit(
-    nom,
-    quantite,
-    prixAchatHT,
-    prixVenteHT,
-    type,
-    degreAlcool
-  );
-  listeProduits.push(nouveauProduit);
+  if (nom && nom.trim() !== "" && type) {
+    let nouveauProduit = new Produit(
+      nom,
+      quantite,
+      prixAchatHT,
+      prixVenteHT,
+      type,
+      degreAlcool
+    );
+    listeProduits.push(nouveauProduit);
 
-  afficherListeProduits();
+    afficherListeProduits();
+  } else {
+    alert("Veuillez choisir un type valide pour le produit.");
+  }
 }
+
+// ...
 
 // Fonction pour afficher la liste des produits
 function afficherListeProduits() {
   let listeProduitsDiv = document.getElementById("listeProduits");
   listeProduitsDiv.innerHTML = "";
 
-listeProduits.forEach((produit) => {
-  let produitDiv = document.createElement("div");
-  produitDiv.classList.add("produit");
+  listeProduits.forEach((produit) => {
+    let produitDiv = document.createElement("div");
+    produitDiv.classList.add("produit");
 
-  produitDiv.innerHTML = `
-        ${produit.nom}
-        Quantité: ${produit.quantite}
-        Prix d'achat HT: ${produit.prixAchatHT}
-        Prix de vente HT: ${produit.prixVenteHT}
-        <div class="calculs">
-          <span class="calcul-label">Prix de vente TTC (unitaire): </span>
-          <span class="calcul-value">${produit.prixVenteTTC.toFixed(2)}</span>
-          <br>
-          <span class="calcul-label">Total avec TVA (pour ${
-            produit.quantite
-          } unité(s)): </span>
-          <span class="calcul-value">${produit
-            .calculerTotalAvecTVA(produit.quantite)
-            .toFixed(2)}</span>
-        </div>
-        Type: ${produit.type}
-        Degré d'alcool: ${
-          produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
-        }
-        Marge HT: ${produit.margeHT}
-        <div class="button-container">
-          <button onclick="modifierQuantite('${
-            produit.nom
-          }', -1)">Décrémenter Stock</button>
-          <button onclick="modifierQuantite('${
-            produit.nom
-          }', 1)">Incrémenter Stock</button>
-        </div>
-        <hr>`;
+    // Nom du produit
+    let nomProduit = document.createElement("div");
+    nomProduit.textContent = produit.nom;
+    produitDiv.appendChild(nomProduit);
 
-      listeProduitsDiv.appendChild(produitDiv);
+    // Quantité
+    let quantiteDiv = document.createElement("div");
+    quantiteDiv.innerHTML = `Quantité: <span id="${produit.nom}-quantite">${produit.quantite}</span>`;
+    produitDiv.appendChild(quantiteDiv);
+
+    // Prix d'achat HT
+    let prixAchatDiv = document.createElement("div");
+    prixAchatDiv.textContent = `Prix d'achat HT: ${produit.prixAchatHT}`;
+    produitDiv.appendChild(prixAchatDiv);
+
+    // Prix de vente HT
+    let prixVenteDiv = document.createElement("div");
+    prixVenteDiv.textContent = `Prix de vente HT: ${produit.prixVenteHT}`;
+    produitDiv.appendChild(prixVenteDiv);
+
+    // Calculs
+    let calculsDiv = document.createElement("div");
+    calculsDiv.classList.add("calculs");
+
+    let prixVenteTTCLabel = document.createElement("span");
+    prixVenteTTCLabel.classList.add("calcul-label");
+    prixVenteTTCLabel.textContent = "Prix de vente TTC (unitaire): ";
+
+    let prixVenteTTCValue = document.createElement("span");
+    prixVenteTTCValue.classList.add("calcul-value");
+    prixVenteTTCValue.textContent = produit.prixVenteTTC.toFixed(2);
+
+    let br = document.createElement("br");
+
+    let totalTVALabel = document.createElement("span");
+    totalTVALabel.classList.add("calcul-label");
+    totalTVALabel.textContent = `Total avec TVA (pour ${produit.quantite} unité(s)): `;
+
+    let totalTVAValue = document.createElement("span");
+    totalTVAValue.classList.add("calcul-value");
+    totalTVAValue.textContent = produit
+      .calculerTotalAvecTVA(produit.quantite)
+      .toFixed(2);
+
+    calculsDiv.appendChild(prixVenteTTCLabel);
+    calculsDiv.appendChild(prixVenteTTCValue);
+    calculsDiv.appendChild(br);
+    calculsDiv.appendChild(totalTVALabel);
+    calculsDiv.appendChild(totalTVAValue);
+
+    produitDiv.appendChild(calculsDiv);
+
+    // Type du produit
+    let typeProduit = document.createElement("div");
+    typeProduit.textContent = `Type: ${produit.type}`;
+    produitDiv.appendChild(typeProduit);
+
+    // Degré d'alcool
+    let degreAlcoolDiv = document.createElement("div");
+    degreAlcoolDiv.textContent = `Degré d'alcool: ${
+      produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
+    }`;
+    produitDiv.appendChild(degreAlcoolDiv);
+
+    // Marge HT
+    let margeHTDiv = document.createElement("div");
+    margeHTDiv.textContent = `Marge HT: ${produit.margeHT}`;
+    produitDiv.appendChild(margeHTDiv);
+
+    // Boutons
+    let buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+
+    let decrementButton = document.createElement("button");
+    decrementButton.textContent = "Décrémenter Stock";
+    decrementButton.onclick = () => modifierQuantite(produit.nom, -1);
+
+    let incrementButton = document.createElement("button");
+    incrementButton.textContent = "Incrémenter Stock";
+    incrementButton.onclick = () => modifierQuantite(produit.nom, 1);
+
+    let modifierButton = document.createElement("button");
+    modifierButton.textContent = "Modifier Produit";
+    modifierButton.onclick = () => modifierProduit(produit.nom);
+
+    let supprimerButton = document.createElement("button");
+    supprimerButton.textContent = "Supprimer Produit";
+    supprimerButton.onclick = () => supprimerProduit(produit.nom);
+
+    buttonContainer.appendChild(decrementButton);
+    buttonContainer.appendChild(incrementButton);
+    buttonContainer.appendChild(modifierButton);
+    buttonContainer.appendChild(supprimerButton);
+
+    produitDiv.appendChild(buttonContainer);
+
+    // Ligne horizontale
+    let hr = document.createElement("hr");
+    produitDiv.appendChild(hr);
+
+    // Ajout du produitDiv à la listeProduitsDiv
+    listeProduitsDiv.appendChild(produitDiv);
   });
 }
 
-// Fonction pour modifier la quantité d'un produit
+// ...
+
 function modifierQuantite(nomProduit, increment) {
   let produit = listeProduits.find((p) => p.nom === nomProduit);
 
   if (produit) {
-      if (produit.quantite + increment >= 0) {
-          produit.quantite += increment;
-          afficherListeProduits();
-      } else {
-          alert("Le stock ne peut pas être négatif.");
-      }
+    let nouvelleQuantite = produit.quantite + increment;
+
+    if (nouvelleQuantite >= 0) {
+      produit.quantite = nouvelleQuantite;
+      document.getElementById(`${nomProduit}-quantite`).textContent =
+        produit.quantite;
+      afficherListeProduits();
+    } else {
+      alert("Le stock ne peut pas être négatif.");
+    }
   }
 }
 
+// Fonction pour supprimer un produit
+function supprimerProduit(nomProduit) {
+  listeProduits = listeProduits.filter((p) => p.nom !== nomProduit);
+  afficherListeProduits();
+}
+
+// Fonction pour modifier les caractéristiques d'un produit
+function modifierProduit(nomProduit) {
+  let produit = listeProduits.find((p) => p.nom === nomProduit);
+
+  if (produit) {
+    // Afficher un formulaire de modification avec les champs préremplis
+    let form = document.createElement("form");
+    form.innerHTML = `
+      <label for="modProductName">Nom du Produit:</label>
+      <input type="text" id="modProductName" value="${produit.nom}" required />
+
+      <label for="modProductQuantity">Quantité:</label>
+      <input type="number" id="modProductQuantity" value="${
+        produit.quantite
+      }" required />
+
+      <label for="modProductPrixAchat">Prix d'achat HT:</label>
+      <input type="number" id="modProductPrixAchat" value="${
+        produit.prixAchatHT
+      }" required />
+
+      <label for="modProductPrixVente">Prix de vente HT:</label>
+      <input type="number" id="modProductPrixVente" value="${
+        produit.prixVenteHT
+      }" required />
+
+      <label for="modProductType">Type:</label>
+      <select id="modProductType">
+        <option value="Boisson alcoolisée" ${
+          produit.type === "Boisson alcoolisée" ? "selected" : ""
+        }>Boisson alcoolisée</option>
+        <option value="Boisson non alcoolisée" ${
+          produit.type === "Boisson non alcoolisée" ? "selected" : ""
+        }>Boisson non alcoolisée</option>
+        <option value="Autre" ${
+          produit.type === "Autre" ? "selected" : ""
+        }>Autre</option>
+      </select>
+
+      <label for="modProductDegreAlcool">Degré d'alcool:</label>
+      <input type="number" id="modProductDegreAlcool" value="${
+        produit.degreAlcool || ""
+      }" />
+
+      <button onclick="validerModification('${nomProduit}')">Valider Modification</button>
+    `;
+
+    document.getElementById("listeProduits").appendChild(form);
+  }
+}
+
+// Fonction pour valider la modification
+function validerModification(nomProduit) {
+  let produit = listeProduits.find((p) => p.nom === nomProduit);
+
+  if (produit) {
+    // Mettre à jour les propriétés du produit avec les nouvelles valeurs
+    produit.nom = document.getElementById("modProductName").value;
+    produit.quantite = +document.getElementById("modProductQuantity").value;
+    produit.prixAchatHT = +document.getElementById("modProductPrixAchat").value;
+    produit.prixVenteHT = +document.getElementById("modProductPrixVente").value;
+    produit.type = document.getElementById("modProductType").value;
+    produit.degreAlcool =
+      +document.getElementById("modProductDegreAlcool").value || null;
+
+    // Supprimer le formulaire de modification
+    let form = document.querySelector("form");
+    if (form) {
+      form.remove();
+    }
+
+    // Afficher la liste mise à jour
+    afficherListeProduits();
+  }
+}
 
 // Fonction pour sauvegarder la liste des produits dans le Local Storage
 function sauvegarderListeProduits() {
-localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
+  localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
 }
 
 // Fonction pour récupérer la liste des produits depuis le Local Storage lors du chargement de la page
 function chargerListeProduits() {
-const produitsEnregistres = localStorage.getItem('listeProduits');
+  const produitsEnregistres = localStorage.getItem("listeProduits");
 
-if (produitsEnregistres) {
+  if (produitsEnregistres) {
     listeProduits = JSON.parse(produitsEnregistres);
     afficherListeProduits();
-}
+  }
 }
 
 // Appel de la fonction pour charger la liste des produits au chargement de la page
-window.onload = function() {
-chargerListeProduits();
-afficherListeProduits();
+window.onload = function () {
+  chargerListeProduits();
+  afficherListeProduits();
 };
 
 // Appel de la fonction pour sauvegarder la liste des produits à chaque modification
-window.onbeforeunload = function() {
-sauvegarderListeProduits();
+window.onbeforeunload = function () {
+  sauvegarderListeProduits();
 };
 
 // Appel initial pour afficher la liste des produits au chargement de la page

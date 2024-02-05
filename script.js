@@ -131,9 +131,8 @@ function afficherListeProduits() {
 
     // Degré d'alcool
     let degreAlcoolDiv = document.createElement("div");
-    degreAlcoolDiv.textContent = `Degré d'alcool: ${
-      produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
-    }`;
+    degreAlcoolDiv.textContent = `Degré d'alcool: ${produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
+      }`;
     produitDiv.appendChild(degreAlcoolDiv);
 
     // Marge HT
@@ -214,36 +213,29 @@ function modifierProduit(nomProduit) {
       <input type="text" id="modProductName" value="${produit.nom}" required />
 
       <label for="modProductQuantity">Quantité:</label>
-      <input type="number" id="modProductQuantity" value="${
-        produit.quantite
+      <input type="number" id="modProductQuantity" value="${produit.quantite
       }" required />
 
       <label for="modProductPrixAchat">Prix d'achat HT:</label>
-      <input type="number" id="modProductPrixAchat" value="${
-        produit.prixAchatHT
+      <input type="number" id="modProductPrixAchat" value="${produit.prixAchatHT
       }" required />
 
       <label for="modProductPrixVente">Prix de vente HT:</label>
-      <input type="number" id="modProductPrixVente" value="${
-        produit.prixVenteHT
+      <input type="number" id="modProductPrixVente" value="${produit.prixVenteHT
       }" required />
 
       <label for="modProductType">Type:</label>
       <select id="modProductType">
-        <option value="Boisson alcoolisée" ${
-          produit.type === "Boisson alcoolisée" ? "selected" : ""
-        }>Boisson alcoolisée</option>
-        <option value="Boisson non alcoolisée" ${
-          produit.type === "Boisson non alcoolisée" ? "selected" : ""
-        }>Boisson non alcoolisée</option>
-        <option value="Autre" ${
-          produit.type === "Autre" ? "selected" : ""
-        }>Autre</option>
+        <option value="Boisson alcoolisée" ${produit.type === "Boisson alcoolisée" ? "selected" : ""
+      }>Boisson alcoolisée</option>
+        <option value="Boisson non alcoolisée" ${produit.type === "Boisson non alcoolisée" ? "selected" : ""
+      }>Boisson non alcoolisée</option>
+        <option value="Autre" ${produit.type === "Autre" ? "selected" : ""
+      }>Autre</option>
       </select>
 
       <label for="modProductDegreAlcool">Degré d'alcool:</label>
-      <input type="number" id="modProductDegreAlcool" value="${
-        produit.degreAlcool || ""
+      <input type="number" id="modProductDegreAlcool" value="${produit.degreAlcool || ""
       }" />
 
       <button onclick="validerModification('${nomProduit}')">Valider Modification</button>
@@ -291,6 +283,40 @@ function chargerListeProduits() {
     listeProduits = JSON.parse(produitsEnregistres);
     afficherListeProduits();
   }
+}
+
+// Fonction pour définir la couleur en fonction du niveau de stock
+function definirCouleurStock(quantite) {
+  if (quantite <= 5) {
+    return 'red'; // Rouge pour un stock faible
+  } else if (quantite <= 20) {
+    return 'orange'; // Orange pour un stock moyen
+  } else {
+    return 'green'; // Vert pour un stock suffisant
+  }
+}
+
+// Mise à jour de la fonction afficherListeProduits pour inclure la couleur du stock
+function afficherListeProduits() {
+  let listeProduitsDiv = document.getElementById('listeProduits');
+  listeProduitsDiv.innerHTML = '';
+
+  listeProduits.forEach((produit) => {
+    let produitDiv = document.createElement('div');
+    produitDiv.classList.add('produit');
+
+    // Utilisation de la fonction pour définir la couleur du stock
+    const couleurStock = definirCouleurStock(produit.quantite);
+
+    produitDiv.innerHTML = `
+        <div style="color: ${couleurStock};">${produit.nom}</div>
+        Quantité: ${produit.quantite}
+        Prix d'achat HT: ${produit.prixAchatHT}
+        // ... (rest of your code)
+        `;
+
+    listeProduitsDiv.appendChild(produitDiv);
+  });
 }
 
 // Appel de la fonction pour charger la liste des produits au chargement de la page

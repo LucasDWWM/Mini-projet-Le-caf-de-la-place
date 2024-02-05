@@ -1,21 +1,30 @@
 // Déclaration d'une classe Produit
 class Produit {
   constructor(
-      nom,
-      quantite,
-      prixAchatHT,
-      prixVenteHT,
-      type,
-      degreAlcool = null
+    nom,
+    quantite,
+    prixAchatHT,
+    prixVenteHT,
+    type,
+    degreAlcool = null
   ) {
-      this.nom = nom;
-      this.quantite = +quantite; // Utilisation de l'opérateur '+' pour convertir en nombre
-      this.prixAchatHT = +prixAchatHT;
-      this.prixVenteHT = +prixVenteHT;
-      this.type = type;
-      this.degreAlcool = degreAlcool !== null ? +degreAlcool : null; // Conversion en nombre si degreAlcool n'est pas null
-      this.calculerMargeHT();
-      this.calculerPrixVenteTTC();
+    this.nom = nom;
+    this.quantite = +quantite; // Utilisation de l'opérateur '+' pour convertir en nombre
+    this.prixAchatHT = +prixAchatHT;
+    this.prixVenteHT = +prixVenteHT;
+    this.type = type;
+    this.degreAlcool = degreAlcool !== null ? +degreAlcool : null; // Conversion en nombre si degreAlcool n'est pas null
+    this.calculerMargeHT();
+    this.calculerPrixVenteTTC();
+  }
+
+  calculerMargeHT() {
+    this.margeHT = this.prixVenteHT - this.prixAchatHT;
+  }
+
+  calculerPrixVenteTTC() {
+    const tauxTVA = 0.2;
+    this.prixVenteTTC = this.prixVenteHT * (1 + tauxTVA);
   }
 
   calculerMargeHT() {
@@ -45,12 +54,12 @@ function ajouterProduit() {
   let degreAlcool = document.getElementById("productDegreAlcool").value || null;
 
   let nouveauProduit = new Produit(
-      nom,
-      quantite,
-      prixAchatHT,
-      prixVenteHT,
-      type,
-      degreAlcool
+    nom,
+    quantite,
+    prixAchatHT,
+    prixVenteHT,
+    type,
+    degreAlcool
   );
   listeProduits.push(nouveauProduit);
 

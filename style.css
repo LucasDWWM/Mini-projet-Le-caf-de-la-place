@@ -20,18 +20,18 @@ header {
 }
 
 header::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
 #headerContent {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 /********** FIN HEADER ***********/
@@ -75,8 +75,8 @@ nav ul li a:hover {
 
 /********** H1 ***********/
 h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
+  font-size: 3em;
+  margin-bottom: 10px;
 }
 
 /********** FIN H1 ***********/
@@ -85,46 +85,39 @@ h1 {
 
 /********** P SIZE ***********/
 p {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
-
-/********** P SIZE ***********/
-
-
 
 /********** SECTION PRESENTATION ***********/
 #presentation {
-    background-image: url('images/cafe-emerveillement-presentation.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 0;
-    text-align: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    /* Center vertically */
-    justify-content: center;
-    /* Center horizontally */
-    height: 100vh;
-    /* Adjust the height */
+  background-image: url("images/cafe-emerveillement-presentation.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  height: 100vh; /* Adjust the height */
 }
 
 .presentation-container {
-    max-width: 800px;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 2;
+  max-width: 800px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
 }
 
 #presentation h2 {
-    font-size: 3em;
-    margin-top: 0;
-    color: white;
+  font-size: 3em;
+  margin-top: 0;
+  color: white;
 }
 
 #presentation p {
-    font-size: 1.8em;
-    margin-bottom: 15px;
+  font-size: 1.8em;
+  margin-bottom: 15px;
 }
 
 .colorWhite {
@@ -138,28 +131,29 @@ p {
 }
 
 .card {
-    max-width: 300px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: 0 10px;
+  max-width: 300px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 10px;
 }
 
+
 .card img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .card h3 {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .card p {
-    font-size: 1.2em;
-    color: #555;
+  font-size: 1.2em;
+  color: #555;
 }
 
 .card:hover {
@@ -174,7 +168,6 @@ p {
 
 /********** FIN SECTION PRESENTATION ***********/
 
-
 /********** FORMULAIRE ***********/
 #stock-form {
     max-width: 100%;
@@ -187,64 +180,103 @@ p {
 
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
 input,
 select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /********** FIN FORMULAIRE ***********/
 
 
+
+#listeProduits {
+  gap: 10px;
+
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  margin-top: 20px;
+}
+
+.produit {
+  border: 1px solid #020202;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.calculs {
+  margin-top: 10px;
+}
+
+.calcul-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.calcul-value {
+  color: #4caf50;
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.button-container button {
+  margin-right: 10px;
+}
+
+
 /* FOOTER */
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
 }
 
 #footerContent {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 #socialMediaLogos {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 #socialMediaLogos img {
-    width: 30px;
-    margin-right: 15px;
-    /* Adjust the margin as needed for spacing between logos */
-    transition: transform 0.3s ease;
-    filter: invert(1);
-    /* Set the color to white */
+  width: 30px;
+  margin-right: 15px;
+  /* Adjust the margin as needed for spacing between logos */
+  transition: transform 0.3s ease;
+  filter: invert(1);
+  /* Set the color to white */
 }
 
 #socialMediaLogos img:hover {
-    transform: scale(1.2);
-    /* Enlarge the image on hover */
+  transform: scale(1.2);
+  /* Enlarge the image on hover */
 }
 
 /* FIN FOOTER */

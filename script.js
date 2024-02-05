@@ -176,7 +176,7 @@ function afficherListeProduits() {
   });
 }
 
-// ...
+
 
 function modifierQuantite(nomProduit, increment) {
   let produit = listeProduits.find((p) => p.nom === nomProduit);

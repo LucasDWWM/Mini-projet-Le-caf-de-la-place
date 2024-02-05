@@ -311,9 +311,7 @@ function afficherListeProduits() {
     produitDiv.innerHTML = `
         <div style="color: ${couleurStock};">${produit.nom}</div>
         Quantité: ${produit.quantite}
-        Prix d'achat HT: ${produit.prixAchatHT}
-        // ... (rest of your code)
-        `;
+        Prix d'achat HT: ${produit.prixAchatHT}`;
 
     listeProduitsDiv.appendChild(produitDiv);
   });

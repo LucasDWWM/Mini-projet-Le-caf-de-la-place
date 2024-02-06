@@ -49,7 +49,6 @@ function ajouterAuPanier(produit) {
 }
 
 // Fonction pour afficher le contenu du panier
-// Fonction pour afficher le contenu du panier
 function afficherPanier() {
   let contenuPanier = document.getElementById("panier"); // Assurez-vous que cet ID correspond à un élément dans votre HTML
   contenuPanier.innerHTML = "<h2>Panier</h2>"; // Réinitialise le contenu du panier
@@ -169,11 +168,19 @@ function afficherPanierAvecMontantTotal() {
 function validerProduit(index) {
   let produit = panier[index];
   alert(`Le produit ${produit.nom} a été validé !`);
-  // Ici, vous pouvez ajouter toute logique supplémentaire pour gérer la validation d'un produit spécifique
 }
 
 function validerPanier() {
-  alert("Le panier entier a été validé !");
+  let totalPanier = 0;
+
+  for (let i = 0; i < montantsPanier.length; i++) {
+    totalPanier += montantsPanier[i];
+  }
+
+  alert(
+    `Le panier entier a été validé ! Montant total : ${totalPanier.toFixed(2)}€`
+  );
+
   panier = []; // Vider le panier après validation
   montantsPanier = []; // Réinitialiser le tableau des montants du panier
   afficherPanier(); // Réafficher le panier maintenant vide
@@ -183,34 +190,51 @@ function validerPanier() {
 
 // Fonction pour ajouter un produit
 function ajouterProduit() {
-  let nom = document.getElementById("productName").value;
-  let quantite = document.getElementById("productQuantity").value;
-  let prixAchatHT = document.getElementById("productPrixAchat").value;
-  let prixVenteHT = document.getElementById("productPrixVente").value;
+  let nom = document.getElementById("productName").value.trim();
+  let quantite = parseFloat(document.getElementById("productQuantity").value);
+  let prixAchatHT = parseFloat(
+    document.getElementById("productPrixAchat").value
+  );
+  let prixVenteHT = parseFloat(
+    document.getElementById("productPrixVente").value
+  );
   let type = document.getElementById("productType").value;
-  let degreAlcool = document.getElementById("productDegreAlcool").value || null;
+  let degreAlcool =
+    parseFloat(document.getElementById("productDegreAlcool").value) || null;
 
-  if (nom && nom.trim() !== "" && type) {
-    let nouveauProduit = new Produit(
-      nom,
-      quantite,
-      prixAchatHT,
-      prixVenteHT,
-      type,
-      degreAlcool
-    );
-    listeProduits.push(nouveauProduit);
-
-    // Ajouter le produit au panier
-    ajouterAuPanier(nouveauProduit);
-
-    // Afficher la liste des produits
-    afficherListeProduits();
-    // Afficher le contenu du panier
-    afficherPanier(); // Nouvelle ligne ajoutée
-  } else {
-    alert("Veuillez choisir un type valide pour le produit.");
+  if (
+    !nom ||
+    !type ||
+    isNaN(quantite) ||
+    isNaN(prixAchatHT) ||
+    isNaN(prixVenteHT)
+  ) {
+    alert("Veuillez remplir tous les champs numériques et obligatoires.");
+    return;
   }
+
+  if (listeProduits.some((produit) => produit.nom === nom)) {
+    alert("Un produit avec ce nom existe déjà.");
+    return;
+  }
+
+  let nouveauProduit = new Produit(
+    nom,
+    quantite,
+    prixAchatHT,
+    prixVenteHT,
+    type,
+    degreAlcool
+  );
+  listeProduits.push(nouveauProduit);
+
+  // Ajouter le produit au panier
+  ajouterAuPanier(nouveauProduit);
+
+  // Afficher la liste des produits
+  afficherListeProduits();
+  // Afficher le contenu du panier
+  afficherPanier();
 }
 
 // Fonction pour afficher la liste des produits
@@ -341,14 +365,10 @@ function afficherListeProduits() {
   });
 }
 
-<<<<<<< HEAD
 // Fonction pour afficher la liste des produits avec la couleur du stock
 function afficherListeProduitsCouleurStock() {
   let listeProduitsDiv = document.getElementById("listeProduits");
   listeProduitsDiv.innerHTML = "";
-=======
-
->>>>>>> f4edc083133d0ee11a5dbaa48c99eecab7880951
 
   listeProduits.forEach((produit) => {
     let produitDiv = document.createElement("div");
@@ -384,10 +404,11 @@ function modifierQuantite(nomProduit, increment) {
   }
 }
 
-// Fonction pour supprimer un produit
 function supprimerProduit(nomProduit) {
-  listeProduits = listeProduits.filter((p) => p.nom !== nomProduit);
-  afficherListeProduits();
+  if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
+    listeProduits = listeProduits.filter((p) => p.nom !== nomProduit);
+    afficherListeProduits();
+  }
 }
 
 // Fonction pour modifier les caractéristiques d'un produit
@@ -455,6 +476,12 @@ function validerModification(nomProduit) {
     produit.degreAlcool =
       +document.getElementById("modProductDegreAlcool").value || null;
 
+    // Mettre à jour le montant correspondant dans le tableau montantsPanier
+    let indexDansPanier = panier.findIndex((p) => p.nom === nomProduit);
+    if (indexDansPanier !== -1) {
+      montantsPanier[indexDansPanier] = produit.prixVenteTTC * produit.quantite;
+    }
+
     // Supprimer le formulaire de modification
     let form = document.querySelector("form");
     if (form) {
@@ -463,6 +490,12 @@ function validerModification(nomProduit) {
 
     // Afficher la liste mise à jour
     afficherListeProduits();
+
+    // Mettre à jour le panier avec les modifications
+    afficherPanier();
+
+    // Mettre à jour le montant total du panier
+    mettreAJourMontantTotalPanier();
   }
 }
 

@@ -35,30 +35,17 @@ class Produit {
 // Liste de produits
 let listeProduits = [];
 
-// Fonction pour ajouter un produit
-function ajouterProduit() {
-  let nom = document.getElementById("productName").value;
-  let quantite = document.getElementById("productQuantity").value;
-  let prixAchatHT = document.getElementById("productPrixAchat").value;
-  let prixVenteHT = document.getElementById("productPrixVente").value;
-  let type = document.getElementById("productType").value;
-  let degreAlcool = document.getElementById("productDegreAlcool").value || null;
+// Panier
+let panier = [];
+let montantsPanier = []; // Tableau pour stocker les montants individuels des produits dans le panier
 
-  if (nom && nom.trim() !== "" && type) {
-    let nouveauProduit = new Produit(
-      nom,
-      quantite,
-      prixAchatHT,
-      prixVenteHT,
-      type,
-      degreAlcool
-    );
-    listeProduits.push(nouveauProduit);
+// Fonction pour ajouter un produit au panier
+function ajouterAuPanier(produit) {
+  panier.push(produit);
 
-    afficherListeProduits();
-  } else {
-    alert("Veuillez choisir un type valide pour le produit.");
-  }
+  // Calculer le montant du produit et l'ajouter au tableau des montants du panier
+  let montantProduit = produit.prixVenteTTC * produit.quantite;
+  montantsPanier.push(montantProduit);
 }
 
 // Fonction pour afficher la liste des produits
@@ -69,6 +56,20 @@ function afficherListeProduits() {
   listeProduits.forEach((produit) => {
     let produitDiv = document.createElement("div");
     produitDiv.classList.add("produit");
+
+    // Logique pour définir la couleur du stock
+    let couleurStock;
+    if (produit.quantite <= 5) {
+      couleurStock = "red"; // Rouge pour un stock faible
+    } else if (produit.quantite <= 20) {
+      couleurStock = "orange"; // Orange pour un stock moyen
+    } else {
+      couleurStock = "green"; // Vert pour un stock suffisant
+    }
+    produitDiv.innerHTML = `
+    <div style="color: ${couleurStock};">${produit.nom}</div>
+    Quantité: ${produit.quantite}
+    Prix d'achat HT: ${produit.prixAchatHT}`;
 
     // Nom du produit
     let nomProduit = document.createElement("div");
@@ -180,8 +181,47 @@ function afficherListeProduits() {
   });
 }
 
+// Fonction pour générer le QR code
+function generateQRCode() {
+  let qrText = document.getElementById("qrText").value;
+  let qrCodeContainer = document.getElementById("qrCode");
+  
+  // Supprimer le contenu précédent du conteneur QR code
+  qrCodeContainer.innerHTML = "";
+  
+  // Générer le QR code uniquement si le texte est non vide
+  if (qrText.trim() !== "") {
+    new QRCode(qrCodeContainer, qrText);
+  } else {
+    // Afficher un message d'erreur si aucun texte n'est saisi
+    qrCodeContainer.textContent = "Veuillez entrer du texte pour générer le QR code.";
+  }
+}
 
 
+
+// Fonction pour afficher la liste des produits avec la couleur du stock
+function afficherListeProduitsCouleurStock() {
+  let listeProduitsDiv = document.getElementById("listeProduits");
+  listeProduitsDiv.innerHTML = "";
+
+  listeProduits.forEach((produit) => {
+    let produitDiv = document.createElement("div");
+    produitDiv.classList.add("produit");
+
+    // Utilisation de la fonction pour définir la couleur du stock
+    const couleurStock = definirCouleurStock(produit.quantite);
+
+    produitDiv.innerHTML = `
+        <div style="color: ${couleurStock};">${produit.nom}</div>
+        Quantité: ${produit.quantite}
+        Prix d'achat HT: ${produit.prixAchatHT}`;
+
+    listeProduitsDiv.appendChild(produitDiv);
+  });
+}
+
+// Fonction pour modifier la quantité d'un produit
 function modifierQuantite(nomProduit, increment) {
   let produit = listeProduits.find((p) => p.nom === nomProduit);
 
@@ -199,10 +239,11 @@ function modifierQuantite(nomProduit, increment) {
   }
 }
 
-// Fonction pour supprimer un produit
 function supprimerProduit(nomProduit) {
-  listeProduits = listeProduits.filter((p) => p.nom !== nomProduit);
-  afficherListeProduits();
+  if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
+    listeProduits = listeProduits.filter((p) => p.nom !== nomProduit);
+    afficherListeProduits();
+  }
 }
 
 // Fonction pour modifier les caractéristiques d'un produit
@@ -263,6 +304,12 @@ function validerModification(nomProduit) {
     produit.degreAlcool =
       +document.getElementById("modProductDegreAlcool").value || null;
 
+    // Mettre à jour le montant correspondant dans le tableau montantsPanier
+    let indexDansPanier = panier.findIndex((p) => p.nom === nomProduit);
+    if (indexDansPanier !== -1) {
+      montantsPanier[indexDansPanier] = produit.prixVenteTTC * produit.quantite;
+    }
+
     // Supprimer le formulaire de modification
     let form = document.querySelector("form");
     if (form) {
@@ -271,6 +318,12 @@ function validerModification(nomProduit) {
 
     // Afficher la liste mise à jour
     afficherListeProduits();
+
+    // Mettre à jour le panier avec les modifications
+    afficherPanier();
+
+    // Mettre à jour le montant total du panier
+    mettreAJourMontantTotalPanier();
   }
 }
 
@@ -307,10 +360,21 @@ function chargerListeProduits() {
   }
 }
 
+// Fonction pour définir la couleur en fonction du niveau de stock
+function definirCouleurStock(quantite) {
+  if (quantite <= 5) {
+    return "red"; // Rouge pour un stock faible
+  } else if (quantite <= 20) {
+    return "orange"; // Orange pour un stock moyen
+  } else {
+    return "green"; // Vert pour un stock suffisant
+  }
+}
+
 // Appel de la fonction pour charger la liste des produits au chargement de la page
 window.onload = function () {
   chargerListeProduits();
-  afficherListeProduits();
+  afficherListeProduitsCouleurStock();
 };
 
 // Appel de la fonction pour sauvegarder la liste des produits à chaque modification

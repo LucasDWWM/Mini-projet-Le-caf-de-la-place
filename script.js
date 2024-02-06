@@ -49,7 +49,6 @@ function ajouterAuPanier(produit) {
 }
 
 // Fonction pour afficher le contenu du panier
-// Fonction pour afficher le contenu du panier
 function afficherPanier() {
   let contenuPanier = document.getElementById("panier"); // Assurez-vous que cet ID correspond à un élément dans votre HTML
   contenuPanier.innerHTML = "<h2>Panier</h2>"; // Réinitialise le contenu du panier
@@ -169,7 +168,6 @@ function afficherPanierAvecMontantTotal() {
 function validerProduit(index) {
   let produit = panier[index];
   alert(`Le produit ${produit.nom} a été validé !`);
-  // Ici, vous pouvez ajouter toute logique supplémentaire pour gérer la validation d'un produit spécifique
 }
 
 function validerPanier() {

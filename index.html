@@ -1,135 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mini projet</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Mini projet</title>
-</head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div id="headerContent">
+        <h1>Le Café Place</h1>
+        <p>L'endroit rêvé pour s'émerveiller</p>
+      </div>
+    </header>
+    <!-- FIN HEADER -->
 
-<body>
+    <!-- NAVBAR -->
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#stock-form">Menu</a></li>
+        <li><a href="#footerContent">Contactez-nous</a></li>
+      </ul>
+    </nav>
+    <!-- FIN NAVBAR -->
 
-  <!-- HEADER -->
-  <header>
-    <div id="headerContent">
-      <h1>Le Café Place</h1>
-      <p>L'endroit rêvé pour s'émerveiller</p>
-    </div>
-  </header>
-  <!-- FIN HEADER -->
+    <!-- SECTION PRESENTATION -->
+    <section id="presentation">
+      <div class="presentation-container">
+        <h2>Bienvenue au Café Place</h2>
+        <p class="colorWhite">
+          Le Café Place est bien plus qu'un simple café. C'est un endroit où ça
+          raconte une histoire, où chaque saveur éveille des émotions. Découvrez
+          un monde de délices soigneusement préparés pour émerveiller vos sens.
+        </p>
 
-  <!-- NAVBAR -->
-  <nav>
-    <ul>
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#stock-form">Menu</a></li>
-      <li><a href="#footerContent">Contactez-nous</a></li>
-    </ul>
-  </nav>
-  <!-- FIN NAVBAR -->
+        <!-- Cards -->
+        <div class="card-container">
+          <div class="card">
+            <img src="images/img-card-1.jpg" alt="Card 1" />
+            <h3>Description 1</h3>
+            <p>Texte pour donner envie...</p>
+          </div>
 
-  <!-- SECTION PRESENTATION -->
-  <section id="presentation">
-    <div class="presentation-container">
-      <h2>Bienvenue au Café Place</h2>
-      <p class="colorWhite">
-        Le Café Place est bien plus qu'un simple café. C'est un endroit où ça raconte une histoire,
-        où chaque saveur éveille des émotions. Découvrez un monde de délices soigneusement préparés pour
-        émerveiller vos sens.
-      </p>
+          <div class="card">
+            <img src="images/img-card-2.jpg" alt="Card 2" />
+            <h3>Description 2</h3>
+            <p>Texte pour donner envie....</p>
+          </div>
 
-      <!-- Cards -->
-      <div class="card-container">
-        <div class="card">
-          <img src="images/img-card-1.jpg" alt="Card 1" />
-          <h3>Description 1</h3>
-          <p>Texte pour donner envie...</p>
-        </div>
-
-        <div class="card">
-          <img src="images/img-card-2.jpg" alt="Card 2" />
-          <h3>Description 2</h3>
-          <p>Texte pour donner envie...</p>
-        </div>
-
-        <div class="card">
-          <img src="images/img-card-3.jpg" alt="Card 3" />
-          <h3>Description 3</h3>
-          <p>Texte pour donner envie...</p>
+          <div class="card">
+            <img src="images/img-card-3.jpg" alt="Card 3" />
+            <h3>Description 3</h3>
+            <p>Texte pour donner envie...</p>
+          </div>
         </div>
       </div>
+    </section>
+    <!-- FIN PRESENTATION -->
+
+    <!-- FORMULAIRE  -->
+    <div id="stock-form">
+      <h2>Ajouter un nouveau produit</h2>
+      <label for="productName">Nom du Produit:</label>
+      <input type="text" id="productName" required />
+
+      <label for="productQuantity">Quantité:</label>
+      <input type="number" id="productQuantity" required />
+
+      <label for="productPrixAchat">Prix d'achat HT:</label>
+      <input type="number" id="productPrixAchat" required />
+
+      <label for="productPrixVente">Prix de vente HT:</label>
+      <input type="number" id="productPrixVente" required />
+
+      <label for="productType">Type:</label>
+      <select id="productType">
+        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+        <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select>
+
+      <label for="productDegreAlcool">Degré d'alcool:</label>
+      <input type="number" id="productDegreAlcool" />
+
+      <button onclick="ajouterProduit()">Ajouter Produit</button>
     </div>
-  </section>
-  <!-- FIN PRESENTATION -->
 
-  <!-- FORMULAIRE  -->
-  <div id="stock-form">
-    <h2>Ajouter un nouveau produit</h2>
-    <label for="productName">Nom du Produit:</label>
-    <input type="text" id="productName" required />
+    <!-- Liste des produits -->
+    <div id="listeProduits"></div>
 
-    <label for="productQuantity">Quantité:</label>
-    <input type="number" id="productQuantity" required />
-
-    <label for="productPrixAchat">Prix d'achat HT:</label>
-    <input type="number" id="productPrixAchat" required />
-
-    <label for="productPrixVente">Prix de vente HT:</label>
-    <input type="number" id="productPrixVente" required />
-
-    <label for="productType">Type:</label>
-    <select id="productType">
-      <option value="Boisson alcoolisée">Boisson alcoolisée</option>
-      <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
-      <option value="Autre">Autre</option>
-    </select>
-
-    <label for="productDegreAlcool">Degré d'alcool:</label>
-    <input type="number" id="productDegreAlcool" />
-
-    <button onclick="ajouterProduit()">Ajouter Produit</button>
-  </div>
-
-  <!-- FORMULAIRE Contact us  -->
-  <form id="contactForm" action="" method="POST">
-    <h2>Contactez-nous</h2>
-    <label for="contactLastName">Nom:</label>
-    <input type="text" id="contactLastName" name="contactLastName" required />
-
-    <label for="contactFirstName">Prénom : </label>
-    <input type="text" id="contactFirstName" name="contactFirstName" required />
-
-    <label for="contactEmail">Email:</label>
-    <input type="email" id="contactEmail" name="contactEmail" required />
-
-    <label for="phone">Téléphone :</label>
-    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-
-    <label for="contactMessage">Message:</label>
-    <textarea id="contactMessage" name="contactMessage" rows="5" cols="50" required></textarea><br>
-
-    <button type="submit">Envoyer</button>
-  </form>
-
-  <!-- Liste des produits -->
-  <div id="listeProduits"></div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div id="footerContent">
-      <p>&copy; 2024 Le Café Place. Tous droits réservés.</p>
-      <div id="socialMediaLogos">
-        <img src="logo/facebook-logo.png.png" alt="Facebook Logo">
-        <img src="logo/twitter-logo.png.png" alt="Twitter Logo">
-        <img src="logo/instagram-logo.png.png" alt="Instagram Logo">
+    <!-- Panier -->
+    <div id="panier">
+      <h2>Panier</h2>
+      <div id="panier-content">
+        <!-- Le contenu du panier sera affiché ici -->
       </div>
+      <p id="montant-total">Montant Total du Panier: 0.00€</p>
     </div>
-  </footer>
-  <!-- FIN FOOTER -->
+    <!-- FIN Panier -->
 
-  <!-- SCRIPT.JS-->
-  <script src="script.js"></script>
-</body>
+    <!-- FORMULAIRE Contact us  -->
+    <form id="contactForm" action="" method="POST">
+      <h2>Contactez-nous</h2>
+      <label for="contactLastName">Nom:</label>
+      <input type="text" id="contactLastName" name="contactLastName" required />
 
+      <label for="contactFirstName">Prénom : </label>
+      <input
+        type="text"
+        id="contactFirstName"
+        name="contactFirstName"
+        required
+      />
+
+      <label for="contactEmail">Email:</label>
+      <input type="email" id="contactEmail" name="contactEmail" required />
+
+      <label for="phone">Téléphone :</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+        required
+      />
+
+      <label for="contactMessage">Message:</label>
+      <textarea
+        id="contactMessage"
+        name="contactMessage"
+        rows="5"
+        cols="50"
+        required
+      ></textarea
+      ><br />
+
+      <button type="submit">Envoyer</button>
+    </form>
+
+    <!-- Le contenu du panier sera affiché ici -->
+
+    <!-- FOOTER -->
+    <footer>
+      <div id="footerContent">
+        <p>&copy; 2024 Le Café Place. Tous droits réservés.</p>
+        <div id="socialMediaLogos">
+          <img src="logo/facebook-logo.png.png" alt="Facebook Logo" />
+          <img src="logo/twitter-logo.png.png" alt="Twitter Logo" />
+          <img src="logo/instagram-logo.png.png" alt="Instagram Logo" />
+        </div>
+      </div>
+    </footer>
+    <!-- FIN FOOTER -->
+
+    <!-- SCRIPT.JS-->
+    <script src="script.js"></script>
+  </body>
 </html>

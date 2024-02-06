@@ -35,6 +35,152 @@ class Produit {
 // Liste de produits
 let listeProduits = [];
 
+// Panier
+let panier = [];
+let montantsPanier = []; // Tableau pour stocker les montants individuels des produits dans le panier
+
+// Fonction pour ajouter un produit au panier
+function ajouterAuPanier(produit) {
+  panier.push(produit);
+
+  // Calculer le montant du produit et l'ajouter au tableau des montants du panier
+  let montantProduit = produit.prixVenteTTC * produit.quantite;
+  montantsPanier.push(montantProduit);
+}
+
+// Fonction pour afficher le contenu du panier
+// Fonction pour afficher le contenu du panier
+function afficherPanier() {
+  let contenuPanier = document.getElementById("panier"); // Assurez-vous que cet ID correspond à un élément dans votre HTML
+  contenuPanier.innerHTML = "<h2>Panier</h2>"; // Réinitialise le contenu du panier
+
+  let totalPanier = 0; // Variable pour calculer le total du panier
+
+  // Parcourir les montants individuels du panier et afficher les produits
+  for (let i = 0; i < panier.length; i++) {
+    let produit = panier[i];
+    let montantProduit = montantsPanier[i]; // Récupérer le montant du produit correspondant
+
+    let produitDiv = document.createElement("div");
+    produitDiv.classList.add("produit");
+
+    let couleurStock = definirCouleurStock(produit.quantite);
+
+    produitDiv.innerHTML = `
+          <div style="color: ${couleurStock};">${produit.nom}</div>
+          <div>Quantité: ${produit.quantite}</div>
+          <div>Prix d'achat HT: ${produit.prixAchatHT.toFixed(2)}€</div>
+          <div>Prix de vente HT: ${produit.prixVenteHT.toFixed(2)}€</div>
+          <div>Prix de vente TTC: ${produit.prixVenteTTC.toFixed(2)}€</div>
+          <div>Type: ${produit.type}</div>
+          ${
+            produit.degreAlcool
+              ? `<div>Degré d'alcool: ${produit.degreAlcool}</div>`
+              : ""
+          }
+          <div>Montant: ${montantProduit.toFixed(2)}€</div>
+      `;
+
+    // Créez un bouton "Valider" pour chaque produit
+    let validerProduitBtn = document.createElement("button");
+    validerProduitBtn.textContent = "Valider";
+    validerProduitBtn.onclick = function () {
+      validerProduit(i); // Appeler la fonction validerProduit avec l'index du produit
+      mettreAJourMontantTotalPanier(); // Mettre à jour le montant total du panier
+    };
+
+    // Ajoutez le bouton "Valider" au produitDiv
+    produitDiv.appendChild(validerProduitBtn);
+
+    contenuPanier.appendChild(produitDiv);
+
+    // Ajouter le montant du produit au total du panier
+    totalPanier += montantProduit;
+  }
+
+  // Afficher le total du panier
+  contenuPanier.innerHTML += `<div>Total du Panier: ${totalPanier.toFixed(
+    2
+  )}€</div>`;
+
+  // Ajout d'un bouton pour valider tout le panier
+  let validerToutBtn = document.createElement("button");
+  validerToutBtn.textContent = "Valider le Panier";
+  validerToutBtn.onclick = validerPanier;
+  contenuPanier.appendChild(validerToutBtn);
+}
+function mettreAJourMontantTotalPanier() {
+  let totalPanier = 0;
+
+  for (let i = 0; i < montantsPanier.length; i++) {
+    totalPanier += montantsPanier[i];
+  }
+
+  // Mettre à jour l'affichage du montant total du panier
+  let montantTotalPanierElement = document.getElementById(
+    "montant-total-panier"
+  );
+  montantTotalPanierElement.textContent = totalPanier.toFixed(2) + "€";
+}
+
+// Fonction pour afficher le panier avec le montant total
+function afficherPanierAvecMontantTotal() {
+  let contenuPanier = document.getElementById("panier-content");
+  contenuPanier.innerHTML = ""; // Réinitialise le contenu du panier
+
+  let montantTotal = 0;
+
+  panier.forEach((produit, index) => {
+    let produitDiv = document.createElement("div");
+    produitDiv.classList.add("produit");
+
+    let couleurStock = definirCouleurStock(produit.quantite);
+
+    produitDiv.innerHTML = `
+      <div style="color: ${couleurStock};">${produit.nom}</div>
+      <div>Quantité: ${produit.quantite}</div>
+      <div>Prix d'achat HT: ${produit.prixAchatHT.toFixed(2)}€</div>
+      <div>Prix de vente HT: ${produit.prixVenteHT.toFixed(2)}€</div>
+      <div>Prix de vente TTC: ${produit.prixVenteTTC.toFixed(2)}€</div>
+      <div>Type: ${produit.type}</div>
+      ${
+        produit.degreAlcool
+          ? `<div>Degré d'alcool: ${produit.degreAlcool}</div>`
+          : ""
+      }
+      <button onclick="validerProduit(${index})">Valider</button>
+    `;
+
+    contenuPanier.appendChild(produitDiv);
+
+    // Ajoutez le montant du produit au montant total du panier
+    montantTotal += produit.calculerTotalAvecTVA(produit.quantite);
+  });
+
+  // Mettez à jour le montant total du panier
+  let montantTotalElement = document.getElementById("montant-total");
+  montantTotalElement.textContent = `Montant Total du Panier: ${montantTotal.toFixed(
+    2
+  )}€`;
+}
+
+// Assurez-vous d'appeler cette fonction après avoir ajouté un produit au panier
+
+function validerProduit(index) {
+  let produit = panier[index];
+  alert(`Le produit ${produit.nom} a été validé !`);
+  // Ici, vous pouvez ajouter toute logique supplémentaire pour gérer la validation d'un produit spécifique
+}
+
+function validerPanier() {
+  alert("Le panier entier a été validé !");
+  panier = []; // Vider le panier après validation
+  montantsPanier = []; // Réinitialiser le tableau des montants du panier
+  afficherPanier(); // Réafficher le panier maintenant vide
+
+  mettreAJourMontantTotalPanier(); // Mettre à jour le montant total du panier
+}
+
 // Fonction pour ajouter un produit
 function ajouterProduit() {
   let nom = document.getElementById("productName").value;
@@ -55,13 +201,17 @@ function ajouterProduit() {
     );
     listeProduits.push(nouveauProduit);
 
+    // Ajouter le produit au panier
+    ajouterAuPanier(nouveauProduit);
+
+    // Afficher la liste des produits
     afficherListeProduits();
+    // Afficher le contenu du panier
+    afficherPanier(); // Nouvelle ligne ajoutée
   } else {
     alert("Veuillez choisir un type valide pour le produit.");
   }
 }
-
-// ...
 
 // Fonction pour afficher la liste des produits
 function afficherListeProduits() {
@@ -71,6 +221,20 @@ function afficherListeProduits() {
   listeProduits.forEach((produit) => {
     let produitDiv = document.createElement("div");
     produitDiv.classList.add("produit");
+
+    // Logique pour définir la couleur du stock
+    let couleurStock;
+    if (produit.quantite <= 5) {
+      couleurStock = "red"; // Rouge pour un stock faible
+    } else if (produit.quantite <= 20) {
+      couleurStock = "orange"; // Orange pour un stock moyen
+    } else {
+      couleurStock = "green"; // Vert pour un stock suffisant
+    }
+    produitDiv.innerHTML = `
+    <div style="color: ${couleurStock};">${produit.nom}</div>
+    Quantité: ${produit.quantite}
+    Prix d'achat HT: ${produit.prixAchatHT}`;
 
     // Nom du produit
     let nomProduit = document.createElement("div");
@@ -167,14 +331,7 @@ function afficherListeProduits() {
     buttonContainer.appendChild(supprimerButton);
 
     produitDiv.appendChild(buttonContainer);
-    // Degré d'alcool (affiché uniquement pour les boissons alcoolisées)
-    if (produit.type === "Boisson alcoolisée") {
-      let degreAlcoolDiv = document.createElement("div");
-      degreAlcoolDiv.textContent = `Degré d'alcool: ${
-        produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
-      }`;
-      produitDiv.appendChild(degreAlcoolDiv);
-    }
+
     // Ligne horizontale
     let hr = document.createElement("hr");
     produitDiv.appendChild(hr);
@@ -184,8 +341,28 @@ function afficherListeProduits() {
   });
 }
 
-// ...
+// Fonction pour afficher la liste des produits avec la couleur du stock
+function afficherListeProduitsCouleurStock() {
+  let listeProduitsDiv = document.getElementById("listeProduits");
+  listeProduitsDiv.innerHTML = "";
 
+  listeProduits.forEach((produit) => {
+    let produitDiv = document.createElement("div");
+    produitDiv.classList.add("produit");
+
+    // Utilisation de la fonction pour définir la couleur du stock
+    const couleurStock = definirCouleurStock(produit.quantite);
+
+    produitDiv.innerHTML = `
+        <div style="color: ${couleurStock};">${produit.nom}</div>
+        Quantité: ${produit.quantite}
+        Prix d'achat HT: ${produit.prixAchatHT}`;
+
+    listeProduitsDiv.appendChild(produitDiv);
+  });
+}
+
+// Fonction pour modifier la quantité d'un produit
 function modifierQuantite(nomProduit, increment) {
   let produit = listeProduits.find((p) => p.nom === nomProduit);
 
@@ -300,10 +477,21 @@ function chargerListeProduits() {
   }
 }
 
+// Fonction pour définir la couleur en fonction du niveau de stock
+function definirCouleurStock(quantite) {
+  if (quantite <= 5) {
+    return "red"; // Rouge pour un stock faible
+  } else if (quantite <= 20) {
+    return "orange"; // Orange pour un stock moyen
+  } else {
+    return "green"; // Vert pour un stock suffisant
+  }
+}
+
 // Appel de la fonction pour charger la liste des produits au chargement de la page
 window.onload = function () {
   chargerListeProduits();
-  afficherListeProduits();
+  afficherListeProduitsCouleurStock();
 };
 
 // Appel de la fonction pour sauvegarder la liste des produits à chaque modification

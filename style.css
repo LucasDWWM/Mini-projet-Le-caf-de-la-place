@@ -5,11 +5,9 @@ body {
   box-sizing: border-box;
 }
 
-
-
 /********** HEADER ***********/
 header {
-  background-image: url('images/bg.png');
+  background-image: url("images/bg.png");
   background-size: cover;
   background-position: center;
   color: white;
@@ -70,9 +68,6 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
-
-
-
 /********** H1 ***********/
 h1 {
   font-size: 3em;
@@ -80,8 +75,6 @@ h1 {
 }
 
 /********** FIN H1 ***********/
-
-
 
 /********** P SIZE ***********/
 p {
@@ -140,7 +133,6 @@ p {
   margin: 0 10px;
 }
 
-
 .card img {
   width: 100%;
   border-radius: 5px;
@@ -162,7 +154,6 @@ p {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-
 /********** FIN SECTION PRESENTATION ***********/
 
 /********** FORMULAIRE ***********/
@@ -174,7 +165,6 @@ p {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 label {
   display: block;
@@ -208,10 +198,7 @@ button:hover {
   background-color: #45a049;
 }
 
-
 /********** FIN FORMULAIRE ***********/
-
-
 
 #listeProduits {
   gap: 10px;
@@ -249,7 +236,39 @@ button:hover {
 .button-container button {
   margin-right: 10px;
 }
+#panier {
+  display: flex;
 
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+#panier h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+#panier ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#panier li {
+  margin-bottom: 5px;
+}
+
+#panier h3 {
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+#panier hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 /* FOOTER */
 footer {

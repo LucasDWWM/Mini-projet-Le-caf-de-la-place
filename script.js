@@ -341,10 +341,14 @@ function afficherListeProduits() {
   });
 }
 
+<<<<<<< HEAD
 // Fonction pour afficher la liste des produits avec la couleur du stock
 function afficherListeProduitsCouleurStock() {
   let listeProduitsDiv = document.getElementById("listeProduits");
   listeProduitsDiv.innerHTML = "";
+=======
+
+>>>>>>> f4edc083133d0ee11a5dbaa48c99eecab7880951
 
   listeProduits.forEach((produit) => {
     let produitDiv = document.createElement("div");

@@ -101,6 +101,47 @@
       <p id="montant-total">Montant Total du Panier: 0.00€</p>
     </div>
     <!-- FIN Panier -->
+    <label for="productQuantity">Quantité:</label>
+    <input type="number" id="productQuantity" required />
+
+    <label for="productPrixAchat">Prix d'achat HT:</label>
+    <input type="number" id="productPrixAchat" required />
+
+    <label for="productPrixVente">Prix de vente HT:</label>
+    <input type="number" id="productPrixVente" required />
+
+    <label for="productType">Type:</label>
+    <select id="productType">
+      <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+      <option value="Boisson non alcoolisée">Boisson non alcoolisée</option>
+      <option value="Autre">Autre</option>
+    </select>
+
+    <label for="productDegreAlcool">Degré d'alcool:</label>
+    <input type="number" id="productDegreAlcool" />
+
+    <button onclick="ajouterProduit()">Ajouter Produit</button>
+  </div>
+
+  <!-- Liste des produits -->
+  <div id="listeProduits"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div id="footerContent">
+    <div id="socialMediaLogos">
+      <img src="logo/facebook-logo.png.png" alt="Facebook Logo">
+      <img src="logo/twitter-logo.png.png" alt="Twitter Logo">
+      <img src="logo/instagram-logo.png.png" alt="Instagram Logo">
+    </div>
+    <p>&copy; 2024 Le Café Place. Tous droits réservés.</p>
+    <div class="footer-links">
+      <p>Contactez-nous - Mentions légales </p>
+    </div>
+  </div>
+</footer>
+<!-- FIN FOOTER -->
+
 
     <!-- FORMULAIRE Contact us  -->
     <form id="contactForm" action="" method="POST">

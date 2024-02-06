@@ -94,25 +94,33 @@
   <!-- Liste des produits -->
   <div id="listeProduits"></div>
 
-<!-- FOOTER -->
-<footer>
-  <div id="footerContent">
-    <div id="socialMediaLogos">
-      <img src="logo/facebook-logo.png.png" alt="Facebook Logo">
-      <img src="logo/twitter-logo.png.png" alt="Twitter Logo">
-      <img src="logo/instagram-logo.png.png" alt="Instagram Logo">
+  <!-- QRCODE -->
+  <section>
+    <label for="qrText">Entrer le texte du QR code :</label>
+    <input type="text" id="qrText" class="qr-text" onchange="generateQRCode()">
+    <div id="qrCode"></div>
+  </section>
+<!-- FIN QRCODE -->
+  <!-- FOOTER -->
+  <footer>
+    <div id="footerContent">
+      <div id="socialMediaLogos">
+        <img src="logo/facebook-logo.png.png" alt="Facebook Logo">
+        <img src="logo/twitter-logo.png.png" alt="Twitter Logo">
+        <img src="logo/instagram-logo.png.png" alt="Instagram Logo">
+      </div>
+      <p>&copy; 2024 Le Café Place. Tous droits réservés.</p>
+      <div class="footer-links">
+        <p>Contactez-nous - Mentions légales </p>
+      </div>
     </div>
-    <p>&copy; 2024 Le Café Place. Tous droits réservés.</p>
-    <div class="footer-links">
-      <p>Contactez-nous - Mentions légales </p>
-    </div>
-  </div>
-</footer>
-<!-- FIN FOOTER -->
+  </footer>
+  <!-- FIN FOOTER -->
 
 
   <!-- SCRIPT.JS-->
   <script src="script.js"></script>
+  <script src="qrcode.min.js"></script>
 </body>
 
 </html>

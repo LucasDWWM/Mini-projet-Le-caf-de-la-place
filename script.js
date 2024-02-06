@@ -61,8 +61,6 @@ function ajouterProduit() {
   }
 }
 
-// ...
-
 // Fonction pour afficher la liste des produits
 function afficherListeProduits() {
   let listeProduitsDiv = document.getElementById("listeProduits");
@@ -131,8 +129,7 @@ function afficherListeProduits() {
 
     // Degré d'alcool
     let degreAlcoolDiv = document.createElement("div");
-    degreAlcoolDiv.textContent = `Degré d'alcool: ${
-      produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
+    degreAlcoolDiv.textContent = `Degré d'alcool: ${produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
     }`;
     produitDiv.appendChild(degreAlcoolDiv);
 
@@ -170,9 +167,8 @@ function afficherListeProduits() {
     // Degré d'alcool (affiché uniquement pour les boissons alcoolisées)
     if (produit.type === "Boisson alcoolisée") {
       let degreAlcoolDiv = document.createElement("div");
-      degreAlcoolDiv.textContent = `Degré d'alcool: ${
-        produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
-      }`;
+      degreAlcoolDiv.textContent = `Degré d'alcool: ${produit.degreAlcool !== null ? produit.degreAlcool : "N/A"
+        }`;
       produitDiv.appendChild(degreAlcoolDiv);
     }
     // Ligne horizontale
@@ -221,36 +217,29 @@ function modifierProduit(nomProduit) {
       <input type="text" id="modProductName" value="${produit.nom}" required />
 
       <label for="modProductQuantity">Quantité:</label>
-      <input type="number" id="modProductQuantity" value="${
-        produit.quantite
+      <input type="number" id="modProductQuantity" value="${produit.quantite
       }" required />
 
       <label for="modProductPrixAchat">Prix d'achat HT:</label>
-      <input type="number" id="modProductPrixAchat" value="${
-        produit.prixAchatHT
+      <input type="number" id="modProductPrixAchat" value="${produit.prixAchatHT
       }" required />
 
       <label for="modProductPrixVente">Prix de vente HT:</label>
-      <input type="number" id="modProductPrixVente" value="${
-        produit.prixVenteHT
+      <input type="number" id="modProductPrixVente" value="${produit.prixVenteHT
       }" required />
 
       <label for="modProductType">Type:</label>
       <select id="modProductType">
-        <option value="Boisson alcoolisée" ${
-          produit.type === "Boisson alcoolisée" ? "selected" : ""
-        }>Boisson alcoolisée</option>
-        <option value="Boisson non alcoolisée" ${
-          produit.type === "Boisson non alcoolisée" ? "selected" : ""
-        }>Boisson non alcoolisée</option>
-        <option value="Autre" ${
-          produit.type === "Autre" ? "selected" : ""
-        }>Autre</option>
+        <option value="Boisson alcoolisée" ${produit.type === "Boisson alcoolisée" ? "selected" : ""
+      }>Boisson alcoolisée</option>
+        <option value="Boisson non alcoolisée" ${produit.type === "Boisson non alcoolisée" ? "selected" : ""
+      }>Boisson non alcoolisée</option>
+        <option value="Autre" ${produit.type === "Autre" ? "selected" : ""
+      }>Autre</option>
       </select>
 
       <label for="modProductDegreAlcool">Degré d'alcool:</label>
-      <input type="number" id="modProductDegreAlcool" value="${
-        produit.degreAlcool || ""
+      <input type="number" id="modProductDegreAlcool" value="${produit.degreAlcool || ""
       }" />
 
       <button onclick="validerModification('${nomProduit}')">Valider Modification</button>
@@ -282,6 +271,24 @@ function validerModification(nomProduit) {
 
     // Afficher la liste mise à jour
     afficherListeProduits();
+  }
+}
+
+
+// Fonction pour générer le QR code
+function generateQRCode() {
+  let qrText = document.getElementById("qrText").value;
+  let qrCodeContainer = document.getElementById("qrCode");
+  
+  // Supprimer le contenu précédent du conteneur QR code
+  qrCodeContainer.innerHTML = "";
+  
+  // Générer le QR code uniquement si le texte est non vide
+  if (qrText.trim() !== "") {
+    new QRCode(qrCodeContainer, qrText);
+  } else {
+    // Afficher un message d'erreur si aucun texte n'est saisi
+    qrCodeContainer.textContent = "Veuillez entrer du texte pour générer le QR code.";
   }
 }
 

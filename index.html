@@ -118,7 +118,11 @@
       <p id="montant-total">Montant Total du Panier: 0.00€</p>
     </div>
     <!-- FIN Panier -->
-    <div id="qrcode"></div>
+    <section>
+      <label for="qrText colorWhite">Entrer le texte du QR code :</label>
+      <input type="text" id="qrText" class="qr-text " onchange="generateQRCode()">
+      <div id="qrCode"></div>
+    </section>
     <!-- FOOTER -->
     <footer>
       <div id="footerContent">
@@ -136,7 +140,7 @@
     <!-- FIN FOOTER -->
 
     <!-- SCRIPT.JS-->
-    <script src="qrcode.js"></script>
+    <script src="qrcode.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

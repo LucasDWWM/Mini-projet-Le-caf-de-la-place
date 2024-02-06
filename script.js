@@ -499,6 +499,23 @@ function validerModification(nomProduit) {
   }
 }
 
+// Fonction pour générer le QR code
+function generateQRCode() {
+  let qrText = document.getElementById("qrText").value;
+  let qrCodeContainer = document.getElementById("qrCode");
+  
+  // Supprimer le contenu précédent du conteneur QR code
+  qrCodeContainer.innerHTML = "";
+  
+  // Générer le QR code uniquement si le texte est non vide
+  if (qrText.trim() !== "") {
+    new QRCode(qrCodeContainer, qrText);
+  } else {
+    // Afficher un message d'erreur si aucun texte n'est saisi
+    qrCodeContainer.textContent = "Veuillez entrer du texte pour générer le QR code.";
+  }
+}
+
 // Fonction pour sauvegarder la liste des produits dans le Local Storage
 function sauvegarderListeProduits() {
   localStorage.setItem("listeProduits", JSON.stringify(listeProduits));

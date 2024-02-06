@@ -8,7 +8,7 @@
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffdb58; /* Jaune */
+  background-color: #774319; /* Jaune */
   color: #333;
   line-height: 1.6;
   margin: 0;
@@ -73,6 +73,7 @@ h2 {
 
 .card-container {
   display: flex;
+  color: #000000;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 20px;

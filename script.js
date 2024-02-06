@@ -476,6 +476,12 @@ function validerModification(nomProduit) {
     produit.degreAlcool =
       +document.getElementById("modProductDegreAlcool").value || null;
 
+    // Mettre à jour le montant correspondant dans le tableau montantsPanier
+    let indexDansPanier = panier.findIndex((p) => p.nom === nomProduit);
+    if (indexDansPanier !== -1) {
+      montantsPanier[indexDansPanier] = produit.prixVenteTTC * produit.quantite;
+    }
+
     // Supprimer le formulaire de modification
     let form = document.querySelector("form");
     if (form) {
@@ -484,6 +490,12 @@ function validerModification(nomProduit) {
 
     // Afficher la liste mise à jour
     afficherListeProduits();
+
+    // Mettre à jour le panier avec les modifications
+    afficherPanier();
+
+    // Mettre à jour le montant total du panier
+    mettreAJourMontantTotalPanier();
   }
 }
 

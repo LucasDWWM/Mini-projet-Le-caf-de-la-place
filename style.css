@@ -260,8 +260,17 @@ footer {
 }
 
 #footerContent {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links p {
+  margin: 0; 
 }
 
 #socialMediaLogos {
